@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Mis 2 Añitos - Ailany!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sacramento&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        /* Ancho de la tarjeta: nunca más ancha que la pantalla ni más alta que ella.
+           957 / 1643 = 0.5825 (proporción exacta de tu imagen de fondo) */
+        :root { --card-w: min(100vw, calc(100svh * 0.5825)); }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #0f172a;
+            color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .invitation-container {
+            width: var(--card-w);
+            text-align: center;
+            position: relative;
+            background: #000;
+        }
+
+        /* Cada página tiene la proporción exacta de la imagen.
+           Todo lo de adentro se mide en % o en cqw (1cqw = 1% del ancho de la tarjeta) */
+        .section-page {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 957 / 1643;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            overflow: hidden;
+            container-type: inline-size;
+        }
+        .section-page-1 { background-image: url('fondo-portada.jpg'); }
+        .section-page-2 { background-image: url('fondo-detalles.jpg'); }
+
+        /* Título curvado sobre la cinta dorada */
+        .ribbon-title {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .content {
+            position: absolute;
+            left: 18%;
+            right: 18%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ---------- PORTADA ---------- */
+        .page-1-content {
+            top: 37%;
+            gap: 3cqw;
+        }
+
+        .footer-btn {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 11%;
+            text-align: center;
+        }
+        .btn-footer {
+            font-size: 3cqw;
+            padding: 1.8cqw 3.6cqw;
+            white-space: nowrap;
+        }
+
+        .title-invite {
+            font-size: 7cqw;
+            color: #0284c7;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .desc-text {
+            font-size: 3.8cqw;
+            color: #111;
+            font-weight: 700;
+            line-height: 1.35;
+            margin: 0 0 1cqw 0;
+        }
+
+        /* ---------- DETALLES ---------- */
+        .page-2-content {
+            top: 36%;
+            bottom: 22%;
+            left: 17%;
+            right: 21%;
+            justify-content: space-between;
+        }
+
+        .date-box-sketch {
+            background: #fff;
+            border: 0.5cqw solid #0284c7;
+            border-radius: 3cqw;
+            padding: 1.6cqw 2cqw;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+        .label-small {
+            font-size: 2.7cqw;
+            font-weight: 700;
+            color: #1d3557;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.1cqw;
+            line-height: 1.3;
+        }
+
+        .date-text {
+            font-size: 4.3cqw;
+            font-weight: 700;
+            color: #990000;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: space-around;
+            background: #fff;
+            border: 0.5cqw solid #10b981;
+            border-radius: 3cqw;
+            padding: 1.4cqw 1cqw;
+            width: 100%;
+            box-sizing: border-box;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+        .countdown-item { text-align: center; }
+        .countdown-number { font-size: 5.6cqw; font-weight: 700; color: #047857; display: block; line-height: 1.1; }
+        .countdown-label { font-size: 2.4cqw; color: #374151; text-transform: uppercase; font-weight: 700; }
+
+        .place-text {
+            font-size: 3.9cqw;
+            font-weight: 600;
+            color: #222;
+            display: block;
+            line-height: 1.25;
+            margin: 0.5cqw 0 1.8cqw 0;
+        }
+
+        .ask-text {
+            font-size: 3.4cqw;
+            font-weight: 700;
+            color: #1d3557;
+            margin: 0 0 1.8cqw 0;
+        }
+
+        /* Botones */
+        .btn-custom {
+            display: inline-block;
+            background: #990000;
+            color: #fff;
+            padding: 2.2cqw 5cqw;
+            border-radius: 7cqw;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 3.9cqw;
+            line-height: 1.2;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            border: none;
+            transition: transform 0.2s;
+        }
+        .btn-custom:hover { transform: translateY(-2px); background: #7f1d1d; color: #fff; }
+        .btn-scroll { background: #1d3557; }
+        .btn-map { background: #1d3557; font-size: 3.4cqw; padding: 2cqw 4cqw; }
+        .page-2-content .btn-custom { white-space: nowrap; }
+        .page-2-content .btn-wsp { font-size: 3.4cqw; padding: 2cqw 4cqw; }
+
+        /* Volver arriba: abajo a la izquierda */
+        .back-top {
+            position: absolute;
+            left: 5cqw;
+            bottom: 3%;
+            background: rgba(255,255,255,0.95);
+            color: #1d3557;
+            font-size: 2.8cqw;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 1.4cqw 3.2cqw;
+            border-radius: 5cqw;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+
+        /* Botón de música: arriba a la derecha, dentro del borde de la tarjeta */
+        .music-control {
+            position: fixed;
+            top: 14px;
+            right: calc((100vw - var(--card-w)) / 2 + 14px);
+            background: #f59e0b;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+        .music-control:hover { transform: scale(1.1); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade { animation: fadeInUp 0.8s ease forwards; }
+
+        /* Iconos (Bootstrap Icons) */
+        .bi { line-height: 1; vertical-align: -0.12em; }
+        .btn-custom .bi-geo-alt-fill,
+        .btn-custom .bi-whatsapp { margin-right: 0.4em; }
+        .btn-footer .bi { margin-left: 0.3em; display: inline-block; animation: rebote 1.4s ease-in-out infinite; }
+        .back-top .bi { margin-right: 0.3em; }
+        .music-control { color: #1d3557; }
+        .music-control .bi { font-size: 1.25rem; }
+
+        @keyframes rebote {
+            0%, 100% { transform: translateY(-1px); }
+            50% { transform: translateY(3px); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="tu-musica.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+    <button class="music-control" id="music-btn" onclick="toggleMusic()" title="Reproducir Música"><i class="bi bi-music-note-beamed"></i></button>
+
+    <div class="invitation-container">
+
+        <!-- ================= SECCIÓN 1: PORTADA ================= -->
+        <div class="section-page section-page-1" id="page-1">
+
+            <!-- Nombre curvado sobre la cinta.
+                 Si lo ves muy alto/bajo, cambia los números "486" y "450" de la curva
+                 (mismo valor sube o baja todo el texto) -->
+            <svg class="ribbon-title animate-fade" viewBox="0 0 957 1643" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <path id="curva1" d="M 140 434 Q 478 372 818 434" fill="none"/>
+                </defs>
+                <text font-family="Sacramento, cursive" font-size="150" font-weight="bold"
+                      fill="#1d3557" dy="0.3em">
+                    <textPath href="#curva1" startOffset="50%" text-anchor="middle">Ailany</textPath>
+                </text>
+            </svg>
+
+            <div class="content page-1-content animate-fade">
+                <div class="title-invite">¡Te invito a mis<br>2 añitos!</div>
+                <p class="desc-text">DOS AÑITOS DE AMOR, ALEGRÍA Y MUCHA DIVERSIÓN. ¡VEN A CELEBRAR CON NOSOTROS!</p>
+            </div>
+
+            <!-- Botón como pie de página, entre Blancanieves y el enanito -->
+            <div class="footer-btn animate-fade">
+                <a href="#page-2" class="btn-custom btn-scroll btn-footer">Ver Detalles<i class="bi bi-chevron-double-down"></i></a>
+            </div>
+        </div>
+
+        <!-- ================= SECCIÓN 2: DETALLES ================= -->
+        <div class="section-page section-page-2" id="page-2">
+
+            <svg class="ribbon-title animate-fade" viewBox="0 0 957 1643" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <path id="curva2" d="M 140 472 Q 478 412 818 472" fill="none"/>
+                </defs>
+                <text font-family="'Great Vibes', cursive" font-size="96"
+                      fill="#1d3557" dy="0.3em">
+                    <textPath href="#curva2" startOffset="50%" text-anchor="middle">Detalles del Gran Día</textPath>
+                </text>
+            </svg>
+
+            <div class="content page-2-content animate-fade">
+
+                <div class="date-box-sketch">
+                    <span class="label-small">Fecha y Hora</span>
+                    <span class="date-text">Miércoles, 07 de Octubre</span>
+                    <span class="date-text">6:00 p.m.</span>
+                </div>
+
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Min</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Seg</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="label-small">Lugar</span>
+                    <span class="place-text">Av. Garcilazo de la Vega #373</span>
+                    <a href="https://maps.google.com/?q=-14.043306,-75.704167" target="_blank" class="btn-custom btn-map"><i class="bi bi-geo-alt-fill"></i>Ver en Google Maps</a>
+                </div>
+
+                <div>
+                    <p class="ask-text">¿Nos acompañarás?</p>
+                    <a href="https://wa.me/51900000000?text=¡Hola!%20Sí%20asistiré%20al%20cumpleaños%20de%20Ailany." target="_blank" class="btn-custom btn-wsp"><i class="bi bi-whatsapp"></i>Confirmar por WhatsApp</a>
+                </div>
+            </div>
+
+            <a href="#page-1" class="back-top"><i class="bi bi-chevron-up"></i>Volver arriba</a>
+        </div>
+
+    </div>
+
+    <script>
+        // Cuenta regresiva al 07 de Octubre de 2026, 18:00
+        const eventDate = new Date("October 7, 2026 18:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                ["days", "hours", "minutes", "seconds"].forEach(id => {
+                    document.getElementById(id).innerText = "00";
+                });
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Control de música
+        const music = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.innerHTML = '<i class="bi bi-music-note-beamed"></i>';
+                musicBtn.title = "Reproducir Música";
+                isPlaying = false;
+            } else {
+                music.play().then(() => {
+                    musicBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+                    musicBtn.title = "Pausar Música";
+                    isPlaying = true;
+                }).catch(e => {
+                    console.log("Audio bloqueado por el navegador hasta la interacción.");
+                });
+            }
+        }
+    </script>
+</body>
+</html>
